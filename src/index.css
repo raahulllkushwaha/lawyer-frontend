@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-navy: #0b1f3a;
+  --color-gold: #c8a96a;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  @apply bg-cream text-ink font-sans;
+  margin: 0;
+}
+
+/* Lenis smooth-scroll requirements */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: #fff;
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply btn bg-navy text-cream hover:bg-navy-700 shadow-soft;
+  }
+  .btn-gold {
+    @apply btn bg-gold text-navy-900 hover:bg-gold-dark shadow-gold;
+  }
+  .btn-outline {
+    @apply btn border border-navy/30 text-navy hover:bg-navy hover:text-cream;
+  }
+  .heading-serif {
+    @apply font-serif font-semibold tracking-tight text-navy-900;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-gold-dark;
+  }
+  .card {
+    @apply rounded-2xl bg-white/90 p-6 shadow-soft ring-1 ring-navy/5 backdrop-blur;
+  }
+  .field-label {
+    @apply mb-1.5 block text-sm font-medium text-navy-800;
+  }
+  .field-input {
+    @apply w-full rounded-lg border border-navy/15 bg-white px-4 py-2.5 text-sm text-ink outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/30;
+  }
+  .field-error {
+    @apply mt-1 text-xs font-medium text-red-600;
+  }
+}
