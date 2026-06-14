@@ -6,6 +6,7 @@ const LINKS = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
   { to: '/practice-areas', label: 'Practice' },
+  { to: '/achievements', label: 'Achievements' },
   { to: '/case-results', label: 'Results' },
   { to: '/blog', label: 'Insights' },
   { to: '/testimonials', label: 'Testimonials' },

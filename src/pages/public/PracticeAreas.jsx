@@ -14,8 +14,13 @@ export default function PracticeAreas() {
         {isLoading ? <Loader /> : !data?.length ? <EmptyState /> : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {data.map((a) => (
-              <div key={a.id} className="card transition hover:-translate-y-1 hover:shadow-gold" data-reveal>
-                <div className="mb-4 text-4xl">{a.icon || '⚖️'}</div>
+              <div key={a.id} className="card transition hover:-translate-y-1 hover:shadow-gold">
+                <div className="mb-4 text-3xl text-gold-dark">
+                  {a.icon
+                    ? <i className={`fas ${a.icon}`} />
+                    : <span>⚖️</span>
+                  }
+                </div>
                 <h3 className="heading-serif text-xl">{a.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-navy-700/80">{a.description}</p>
               </div>

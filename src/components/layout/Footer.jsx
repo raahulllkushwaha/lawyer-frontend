@@ -29,6 +29,7 @@ export default function Footer() {
     { url: about?.linkedinUrl, label: 'LinkedIn' },
     { url: about?.twitterUrl, label: 'Twitter' },
     { url: about?.facebookUrl, label: 'Facebook' },
+    { url: about?.instagramUrl, label: 'Instagram' },
   ].filter((s) => s.url);
 
   return (
@@ -87,7 +88,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-cream/10 py-6 text-center text-xs text-cream/50">
-        &copy; {new Date().getFullYear()} Advocate. All rights reserved.
+        &copy; {new Date().getFullYear()} Advocate Rahul Kushwaha. All rights reserved.
       </div>
     </footer>
   );

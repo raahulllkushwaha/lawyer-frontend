@@ -9,15 +9,14 @@ function Timeline({ items, render }) {
   return (
     <ol className="relative border-l border-gold/40 pl-6">
       {items.map((it, i) => (
-        <li key={it.id ?? i} className="mb-8" data-reveal>
-          <span className="absolute -left-[7px] mt-1 h-3 w-3 rounded-full bg-gold" />
+        <li key={it.id ?? i} className="relative mb-8" data-reveal>
+          <span className="absolute -left-[1.5rem] top-1.5 -translate-x-1/2 h-3 w-3 rounded-full bg-gold" />
           {render(it)}
         </li>
       ))}
     </ol>
   );
 }
-
 export default function About() {
   const { data: about, isLoading } = useApiQuery('about', ENDPOINTS.about);
   const { data: education } = useApiQuery('education', ENDPOINTS.education);
