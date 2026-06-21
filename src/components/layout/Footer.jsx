@@ -36,7 +36,7 @@ export default function Footer() {
     <footer className="bg-navy-900 text-cream/80">
       <div className="container-page grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-4">
         <div>
-          <p className="font-serif text-2xl font-bold text-cream"><span className="text-gold">&#9878;</span> Advocate</p>
+          <p className="font-serif text-2xl font-bold text-cream"><span className="text-gold">&#9878;</span> {about?.name || 'Advocate'}</p>
           <p className="mt-4 text-sm leading-relaxed text-cream/70">
             Dedicated legal counsel committed to protecting your rights with integrity and diligence.
           </p>
@@ -88,7 +88,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-cream/10 py-6 text-center text-xs text-cream/50">
-        &copy; {new Date().getFullYear()} Advocate Rahul Kushwaha. All rights reserved.
+        &copy; {new Date().getFullYear()} {about?.name || 'Advocate'}. All rights reserved.
       </div>
     </footer>
   );

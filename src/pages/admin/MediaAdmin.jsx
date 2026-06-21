@@ -9,19 +9,26 @@ import Modal from '../../components/admin/Modal.jsx';
 import ConfirmDelete from '../../components/admin/ConfirmDelete.jsx';
 import { formatDate } from '../../lib/format.js';
 
-// Media uses create/delete only (AdminMediaController has no update endpoint).
 export default function MediaAdmin() {
   const { data, isLoading, refetch } = useQuery({ queryKey: ['admin-media'], queryFn: adminApi.media.list });
   const rows = Array.isArray(data) ? data : data?.content || [];
   const [open, setOpen] = useState(false);
+  const [editing, setEditing] = useState(null);
   const [delTarget, setDelTarget] = useState(null);
   const [busy, setBusy] = useState(false);
   const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm();
 
+  const openCreate = () => { setEditing(null); reset({}); setOpen(true); };
+  const openEdit = (row) => { setEditing(row); reset(row); setOpen(true); };
+
   const onSubmit = async (v) => {
+    const payload = { ...v, displayOrder: v.displayOrder ? Number(v.displayOrder) : null };
     try {
-      await adminApi.media.create({ ...v, displayOrder: v.displayOrder ? Number(v.displayOrder) : null });
-      toast.success('Added'); setOpen(false); reset({}); refetch();
+      if (editing) await adminApi.media.update(editing.id, payload);
+      else await adminApi.media.create(payload);
+      toast.success(editing ? 'Updated' : 'Added');
+      setOpen(false);
+      refetch();
     } catch (err) { toast.error(err.message); }
   };
   const confirmDelete = async () => {
@@ -32,17 +39,22 @@ export default function MediaAdmin() {
 
   return (
     <>
-      <PageHeader title="Media Mentions" subtitle="Press coverage and features" action={<button onClick={() => { reset({}); setOpen(true); }} className="btn-primary px-4 py-2 text-sm">+ Add New</button>} />
+      <PageHeader title="Media Mentions" subtitle="Press coverage and features" action={<button onClick={openCreate} className="btn-primary px-4 py-2 text-sm">+ Add New</button>} />
       <DataTable
         isLoading={isLoading} rows={rows}
         columns={[
           { key: 'title', header: 'Title' },
           { key: 'mediaOutlet', header: 'Outlet' },
           { key: 'mentionDate', header: 'Date', render: (r) => formatDate(r.mentionDate) },
-          { key: '_a', header: 'Actions', render: (r) => <button onClick={() => setDelTarget(r)} className="text-xs font-semibold text-red-600">Delete</button> },
+          { key: '_a', header: 'Actions', render: (r) => (
+            <div className="flex gap-2">
+              <button onClick={() => openEdit(r)} className="text-xs font-semibold text-navy-700">Edit</button>
+              <button onClick={() => setDelTarget(r)} className="text-xs font-semibold text-red-600">Delete</button>
+            </div>
+          ) },
         ]}
       />
-      <Modal open={open} onClose={() => setOpen(false)} title="Add Media Mention" wide>
+      <Modal open={open} onClose={() => setOpen(false)} title={editing ? 'Edit Media Mention' : 'Add Media Mention'} wide>
         <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 sm:grid-cols-2">
           <div><label className="field-label">Title *</label><input className="field-input" {...register('title', { required: true })} /></div>
           <div><label className="field-label">Media Outlet</label><input className="field-input" {...register('mediaOutlet')} /></div>

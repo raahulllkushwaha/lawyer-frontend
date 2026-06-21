@@ -7,7 +7,10 @@ import { ENDPOINTS } from '../../lib/endpoints.js';
 import { formatDate } from '../../lib/format.js';
 
 export default function Media() {
-  const { data, isLoading } = useApiQuery('media', ENDPOINTS.media);
+  const { data, isLoading } = useApiQuery('media', ENDPOINTS.media, {
+    staleTime: 0,
+    refetchOnMount: 'always',
+  });
   return (
     <>
       <Seo title="Media" />

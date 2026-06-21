@@ -30,11 +30,12 @@ export const adminApi = {
   blogs: crud(ENDPOINTS.admin.blogs),
   faqs: crud(ENDPOINTS.admin.faqs),
   resources: crud(ENDPOINTS.admin.resources),
-  media: {
+media: {
     list: () => api.get(ENDPOINTS.admin.media),
     create: (body) => api.post(ENDPOINTS.admin.media, body),
+    update: (id, body) => api.put(`${ENDPOINTS.admin.media}/${id}`, body),
     remove: (id) => api.delete(`${ENDPOINTS.admin.media}/${id}`),
-  },
+},
   appointments: {
     list: (params) => api.get(ENDPOINTS.admin.appointments, { params }),
     setStatus: (id, status, adminNotes) =>
